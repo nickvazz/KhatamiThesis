@@ -7,9 +7,13 @@ import keras.optimizers
 from keras import backend as K
 from input_data import getTempData
 from sklearn.model_selection import train_test_split
+
 import matplotlib as mpl
-mpl.use('TkAgg')
+from sys import platform
+if platform == 'darwin':
+    mpl.use('TkAgg')
 import matplotlib.pyplot as plt
+
 import seaborn as sns
 from keras.callbacks import TensorBoard
 import pandas as pd
