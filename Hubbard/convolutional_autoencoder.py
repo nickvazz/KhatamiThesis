@@ -23,10 +23,10 @@ from datetime import datetime
 
 sns.set()
 
-num_pts = 20
+num_pts = 100
 A,B,C,D = 29,15,45,65
-mid = 1
-epochs = 5
+mid = 2
+epochs = 50
 make_plots = True
 
 print 'loading {} points per temp'.format(num_pts)
