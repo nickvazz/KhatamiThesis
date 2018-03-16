@@ -31,7 +31,7 @@ make_plots = True
 
 print 'loading {} points per temp'.format(num_pts)
 
-data, temps = getTempData(num_data_points=num_pts,U=4, test=True)
+data, temps = getTempData(num_data_points=num_pts,U=4, test=False)
 X_train, X_test, y_train, y_test = train_test_split(data, temps, test_size=.3, random_state=42, stratify=temps)
 
 np.random.seed(42)
