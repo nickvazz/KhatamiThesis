@@ -23,7 +23,7 @@ from datetime import datetime
 
 sns.set()
 
-num_pts = 100
+num_pts = 1000
 A,B,C,D = 29,15,45,65
 mid = 2
 epochs = 50
