@@ -12,6 +12,8 @@ import matplotlib as mpl
 from sys import platform
 if platform == 'darwin':
     mpl.use('TkAgg')
+elif platform == "linux2":
+    mpl.use('Agg')
 import matplotlib.pyplot as plt
 
 import seaborn as sns
