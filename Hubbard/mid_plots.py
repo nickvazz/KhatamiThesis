@@ -74,27 +74,27 @@ if __name__ == '__main__':
     from keras.models import load_model
     from input_data import getTempData
     from sklearn.model_selection import train_test_split
-    from convolutional_autoencoder import model_creator
+    import json
     from keras.models import Model
+    from convolutional_autoencoder import model_creator
 
-    mid = 2
+    mid = 1
     U = 5
-    test = False
+    test = True
     num_pts = 100
     layers = [29,15,45,65]
 
 
-    print 'why'
     data, temps = getTempData(num_data_points=num_pts,U=U, test=test)
     X_train, X_test, y_train, y_test = train_test_split(data, temps, test_size=.3, random_state=42, stratify=temps)
-    print 'Results/U{}/{}D_model.json'.format(U,mid)
-    # model = load_model('Results/U{}/{}D_model.json'.format(U,mid))
-    model = model_creator(*layers)
+
+    model = model_creator(*layers, mid=mid)
+
     model.load_weights('Results/U{}/{}D_model.h5'.format(U,mid))
-    print 'what'
+
     middle_layer = Model(inputs=model.input,
                          outputs=model.get_layer('code').output)
-    print 'yea'
+
     train_output = middle_layer.predict(X_train)
     test_output = middle_layer.predict(X_test)
 

@@ -25,5 +25,6 @@ df[['acc','val_acc']].plot(ax=ax[0], title='Accuracy')
 df[['loss','val_loss']].plot(ax=ax[1], title='Loss')
 df[['mean_absolute_error','val_mean_absolute_error']].plot(ax=ax[2], title='Mean Absolute Error')
 for axes in ax: axes.legend(['Training','Validation'])
+
 plt.tight_layout()
-plt.show()
+plt.savefig('Results/U{}/{}D_metrics.jpg'.format(U,mid))

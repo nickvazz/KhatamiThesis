@@ -24,16 +24,16 @@ from datetime import datetime
 
 sns.set()
 
-num_pts = 10
+num_pts = 1000
 A,B,C,D = 29,15,45,65
 layers = [29,15,45,65]
 mid = 2
-epochs = 3
-test = True
+epochs = 50
+test = False
 make_plots = True
-U = 5
+U = 4
 
-def model_creator(A,B,C,D):
+def model_creator(A,B,C,D, mid):
     input_data = Input(shape=(4,4,4,200,))
     x = Conv3D(A,(2,2,2), padding='same', activation='relu')(input_data)
     # x = Conv3D(A,(2,2,2), padding='same', activation='relu')(x)
@@ -70,7 +70,7 @@ if __name__ == '__main__':
 
     np.random.seed(42)
 
-    model = model_creator(A,B,C,D)
+    model = model_creator(A,B,C,D, mid)
     # print model.summary()
 
     # need graphviz (used homebrew)
