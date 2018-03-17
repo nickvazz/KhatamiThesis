@@ -1,19 +1,22 @@
 import numpy as np
 import glob
 import pandas as pd
-import multiprocessing
-
 
 def getTempData(U=4, num_data_points=5, test=False):
     files = glob.glob('Data/4x4x4_Mu0/*U{}*/*'.format(U))
     files = sorted(files)
     if test == True:
         files = files[:3]
+        print 'this is a test'
 
     # num_data_points = 5 # only for testing
     data = np.asarray([])
     temps = np.asarray([])
+
+    print 'loading {} points per temp for U{}'.format(num_data_points, U)
+
     for f in files:
+        print f, 'loaded'
         df = pd.DataFrame(pd.read_csv(f,header=None))[:num_data_points]
 
         data = np.append(data,np.array([np.array(list(item)[:12800], dtype=int ) for item in df[0]]))
