@@ -24,8 +24,8 @@ def middle_layer_plots(mid, train_output, test_output, y_train, y_test, U, layer
         toFile.append(pd.DataFrame({'x':x2,'y':y2,'T':y_test}))
         toFile.sort_values('T',inplace=True)
 
-        toFile.to_csv("Results/U{}/2D_ABCD{}_{}_{}_{}.csv".format(A,B,C,D), sep=',')
-        plt.savefig("Results/U{}/2D_ABCD{}_{}_{}_{}.png".format(A,B,C,D))
+        toFile.to_csv("Results/U{}/2D_ABCD{}_{}_{}_{}.csv".format(U,A,B,C,D), sep=',')
+        plt.savefig("Results/U{}/2D_ABCD{}_{}_{}_{}.png".format(U,A,B,C,D))
 
         plt.clf()
 
@@ -39,7 +39,7 @@ def middle_layer_plots(mid, train_output, test_output, y_train, y_test, U, layer
         plt.savefig("Results/U{}/2D_Hist_ABCD{}_{}_{}_{}.png".format(U,A,B,C,D))
         # plt.show()
         plt.clf()
-        model.reset_states()
+
 
     elif mid == 1:
         import matplotlib as mpl

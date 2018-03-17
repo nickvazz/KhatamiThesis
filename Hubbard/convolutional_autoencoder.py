@@ -24,15 +24,6 @@ from datetime import datetime
 
 sns.set()
 
-num_pts = 1000
-A,B,C,D = 29,15,45,65
-layers = [29,15,45,65]
-mid = 2
-epochs = 50
-test = False
-make_plots = True
-U = 4
-
 def model_creator(A,B,C,D, mid):
     input_data = Input(shape=(4,4,4,200,))
     x = Conv3D(A,(2,2,2), padding='same', activation='relu')(input_data)
@@ -63,10 +54,8 @@ def model_creator(A,B,C,D, mid):
     model.compile(optimizer='adam', loss='binary_crossentropy', metrics=['mae','accuracy'])
     return model
 
-if __name__ == '__main__':
-
-    data, temps = getTempData(num_data_points=num_pts,U=U, test=test)
-    X_train, X_test, y_train, y_test = train_test_split(data, temps, test_size=.3, random_state=42, stratify=temps)
+def train_model(U, num_pts, mid, epochs=50, test=False, make_plots=True, layers=[29,15,45,65]):
+    A,B,C,D = layers
 
     np.random.seed(42)
 
@@ -97,7 +86,6 @@ if __name__ == '__main__':
     if make_plots == True:
         middle_layer_plots(mid, train_output, test_output, y_train, y_test, U, layers)
 
-    model.reset_states()
     model_json = model.to_json()
     with open("Results/U{}/{}D_model.json".format(U,mid,mid), "w") as json_file:
         json_file.write(model_json)
@@ -105,3 +93,18 @@ if __name__ == '__main__':
     # serialize weights to HDF5
     model.save_weights("Results/U{}/{}D_model.h5".format(U,mid,mid))
     print("Saved model to disk")
+
+    model.reset_states()
+
+if __name__ == '__main__':
+
+    num_pts = 1000
+    epochs = 50
+    test = False
+    make_plots = True
+
+    for U in [5,6,8]:
+        data, temps = getTempData(num_data_points=num_pts,U=U, test=test)
+        X_train, X_test, y_train, y_test = train_test_split(data, temps, test_size=.3, random_state=42, stratify=temps)
+        for mid in [1,2]:
+            train_model(U, num_pts, mid, epochs=epochs, test=test, make_plots=make_plots)
