@@ -25,9 +25,11 @@ def make_metric_plot(U,mid):
 
     plt.tight_layout()
     plt.savefig('Results/U{}/{}D_metrics.jpg'.format(U,mid))
+    plt.clf()
 
 if __name__ == '__main__':
 
-    for U in [5,6,8]:
+    for U in [4,5,6,8,9,10,12,14,16,20]:
         for mid in [1,2]:
+            print U, mid
             make_metric_plot(U, mid)

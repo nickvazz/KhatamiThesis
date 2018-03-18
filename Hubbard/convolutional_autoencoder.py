@@ -7,6 +7,7 @@ import keras.optimizers
 from keras import backend as K
 from input_data import getTempData
 from mid_plots import middle_layer_plots
+from metric_plots import make_metric_plot
 from sklearn.model_selection import train_test_split
 
 import matplotlib as mpl
@@ -70,7 +71,7 @@ def train_model(U, num_pts, mid, epochs=50, test=False, make_plots=True, layers=
     history = model.fit(X_train, X_train, epochs=epochs, batch_size=50,
                 validation_data=(X_test, X_test),
                 shuffle=True,
-                verbose=1)
+                verbose=2)
     metrics = dict(history.history.items())
     metrics['epochs'] = range(1,epochs+1)
 
@@ -85,6 +86,7 @@ def train_model(U, num_pts, mid, epochs=50, test=False, make_plots=True, layers=
 
     if make_plots == True:
         middle_layer_plots(mid, train_output, test_output, y_train, y_test, U, layers)
+        make_metric_plot(U,mid)
 
     model_json = model.to_json()
     with open("Results/U{}/{}D_model.json".format(U,mid,mid), "w") as json_file:
@@ -98,13 +100,16 @@ def train_model(U, num_pts, mid, epochs=50, test=False, make_plots=True, layers=
 
 if __name__ == '__main__':
 
-    num_pts = 1000
-    epochs = 50
-    test = False
+    num_pts = 10
+    epochs = 5
+    test = True
     make_plots = True
 
-    for U in [5,6,8]:
-        data, temps = getTempData(num_data_points=num_pts,U=U, test=test)
+    # for U in [5,6,8,9,10,12,14,16,20]:
+    for U in [4]:
+
+        data, temps = getTempData(num_data_points=num_pts,U=U, test=test, add_flip=True)
         X_train, X_test, y_train, y_test = train_test_split(data, temps, test_size=.3, random_state=42, stratify=temps)
+
         for mid in [1,2]:
             train_model(U, num_pts, mid, epochs=epochs, test=test, make_plots=make_plots)
