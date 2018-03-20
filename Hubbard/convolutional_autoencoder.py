@@ -100,13 +100,13 @@ def train_model(U, num_pts, mid, epochs=50, test=False, make_plots=True, layers=
 
 if __name__ == '__main__':
 
-    num_pts = 10
-    epochs = 5
-    test = True
+    num_pts = 1000
+    epochs = 100
+    test = False
     make_plots = True
 
-    # for U in [5,6,8,9,10,12,14,16,20]:
-    for U in [4]:
+    for U in [5,6,8,9,10,12,14,16,20]:
+    # for U in [4]:
 
         data, temps = getTempData(num_data_points=num_pts,U=U, test=test, add_flip=True)
         X_train, X_test, y_train, y_test = train_test_split(data, temps, test_size=.3, random_state=42, stratify=temps)

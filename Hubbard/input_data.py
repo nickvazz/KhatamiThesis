@@ -49,3 +49,7 @@ if __name__ == '__main__':
     print data.shape
     print set(temps)
     print len(data)
+
+    # U = [4, 5, 6, 8, 9, 10, 12, 14, 16, 20]
+    #
+    # khatami = [.16,.22,.30,.34,.35,.33,.30,.26,.23,.19]
