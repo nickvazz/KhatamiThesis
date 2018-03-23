@@ -13,17 +13,22 @@ from sklearn.model_selection import train_test_split
 
 from datetime import datetime
 
-import numpy as np
-import matplotlib.pyplot as plt
 import matplotlib as mpl
-import matplotlib.cm as cm
+from sys import platform
+if platform == 'darwin':
+    mpl.use('TkAgg')
+elif platform == "linux2":
+    mpl.use('Agg')
+import matplotlib.pyplot as plt
 import pandas as pd
+import seaborn as sns
+import numpy as np
 
 # TODO
 # elu instead or relu
 
 L = 40
-temp, data = getData(L=L, periodic=True)
+temp, data = getData()
 np.random.seed(42)
 np.random.shuffle(data)
 np.random.seed(42)
@@ -145,10 +150,10 @@ logdir = "{}/run-{}/".format(root_logdir, now)
 
 autoencoder.fit_generator(datagen.flow(x_train, x_train, batch_size=10),
                 steps_per_epoch=len(x_train)/10,
-                epochs=100,
+                epochs=2,
                 validation_data=(x_test, x_test),
                 callbacks=[TensorBoard(log_dir=logdir)],
-                verbose=2
+                verbose=1
                 )
 
 

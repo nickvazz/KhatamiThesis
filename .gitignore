@@ -2,3 +2,7 @@ Data/
 Results/
 Other/
 .DS_Store
+input_data.pyc
+ising_import_data.pyc
+metric_plots.pyc
+mid_plots.pyc
